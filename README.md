@@ -41,6 +41,31 @@ Luego abre en el navegador: http://127.0.0.1:5000
 
 La aplicación crea automáticamente la carpeta `uploads/` para guardar los PDF subidos.
 
+## Configuración
+
+La clave secreta de Flask se lee de la variable de entorno `SECRET_KEY`. Si no existe, la aplicación genera una clave aleatoria en cada arranque (las sesiones no se conservan al reiniciar).
+
+Para fijar una clave propia en Git Bash:
+
+```bash
+export SECRET_KEY="$(python -c 'import secrets; print(secrets.token_hex(32))')"
+python app.py
+```
+
+En PowerShell:
+
+```powershell
+$env:SECRET_KEY = python -c "import secrets; print(secrets.token_hex(32))"
+python app.py
+```
+
+## Seguridad
+
+- Los formularios están protegidos contra CSRF con Flask-WTF.
+- Solo se aceptan archivos cuyo contenido sea un PDF real.
+- Los archivos subidos se guardan con nombres aleatorios.
+- La aplicación escucha solo en `127.0.0.1` y no usa el modo debug.
+
 ## Estructura del proyecto
 
 ```

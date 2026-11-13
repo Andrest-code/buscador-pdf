@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Archivos repetidos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="cabecera">
+        <div class="contenedor">
+            <span class="marca">Buscador de documentos</span>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <section class="bloque">
+            <h2>Archivos repetidos</h2>
+            <p class="nota">
+                Estos archivos ya existen en el sistema (mismo contenido o mismo nombre).
+                Elige qué hacer con ellos.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Archivo que subiste</th>
+                        <th>Ya existe como</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pendientes %}
+                    <tr>
+                        <td>{{ p.nombre }}</td>
+                        <td>{{ p.existente or '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form method="post" class="fila botones">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" name="accion" value="reemplazar">Reemplazar los existentes</button>
+                <button type="submit" name="accion" value="omitir" class="secundario">Omitir los repetidos</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

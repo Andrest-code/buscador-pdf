@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 15px;
+  background: #f5f5f4;
+  color: #1c1917;
+  margin: 0;
+}
+
+.cabecera {
+  background: #1f2937;
+  color: #fff;
+  padding: 14px 0;
+}
+.marca {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.contenedor {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+main.contenedor {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.bloque {
+  background: #fff;
+  border: 1px solid #d6d3d1;
+  border-radius: 4px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.fila {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.botones {
+  margin-top: 16px;
+}
+
+input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 9px 11px;
+  border: 1px solid #a8a29e;
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: inherit;
+}
+input[type="text"]:focus {
+  outline: 2px solid #1f2937;
+  outline-offset: -1px;
+}
+
+button {
+  background: #1f2937;
+  color: #fff;
+  border: 1px solid #1f2937;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+}
+button:hover {
+  background: #374151;
+}
+button.secundario {
+  background: #fff;
+  color: #1f2937;
+  border-color: #a8a29e;
+}
+button.secundario:hover {
+  background: #f5f5f4;
+}
+button.peligro {
+  background: #fff;
+  color: #b91c1c;
+  border-color: #d6d3d1;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+button.peligro:hover {
+  background: #fef2f2;
+  border-color: #b91c1c;
+}
+
+.aviso {
+  background: #fff;
+  border: 1px solid #d6d3d1;
+  border-left: 4px solid #1f2937;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.aviso.alerta {
+  border-left-color: #b45309;
+}
+.aviso a {
+  margin-left: 8px;
+}
+
+.nota {
+  color: #78716c;
+  font-size: 14px;
+}
+
+/* Resultados */
+.resultados {
+  margin-bottom: 18px;
+}
+.resultado {
+  display: block;
+  background: #fff;
+  border: 1px solid #d6d3d1;
+  border-left: 4px solid #1f2937;
+  border-radius: 3px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+.resultado:hover {
+  border-color: #1f2937;
+  background: #fafaf9;
+}
+.resultado-titulo {
+  font-weight: 600;
+}
+.pagina {
+  font-weight: 400;
+  font-size: 13px;
+  color: #57534e;
+  margin-left: 10px;
+}
+.fragmento {
+  margin-top: 5px;
+  color: #44403c;
+  font-size: 14px;
+  line-height: 1.45;
+}
+mark {
+  background: #fde68a;
+  padding: 0 2px;
+}
+
+/* Tabla */
+.encabezado-tabla {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.encabezado-tabla h2 {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  text-align: left;
+  padding: 9px 8px;
+  border-bottom: 1px solid #e7e5e4;
+}
+th {
+  font-size: 13px;
+  color: #57534e;
+  font-weight: 600;
+  border-bottom: 1px solid #a8a29e;
+}
+.num {
+  text-align: right;
+  width: 90px;
+}
+.acciones {
+  text-align: right;
+  width: 100px;
+}
+td form {
+  margin: 0;
+}
+
+a {
+  color: #1d4ed8;
+}

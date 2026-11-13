@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buscador de documentos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="cabecera">
+        <div class="contenedor">
+            <span class="marca">Buscador de documentos</span>
+        </div>
+    </header>
+
+    <main class="contenedor">
+
+        {% for m in get_flashed_messages() %}
+        <div class="aviso">{{ m }}</div>
+        {% endfor %}
+
+        {% if pendientes %}
+        <div class="aviso alerta">
+            Hay {{ pendientes }} archivo(s) repetidos esperando tu decisión.
+            <a href="{{ url_for('duplicados') }}">Revisar</a>
+        </div>
+        {% endif %}
+
+        <section class="bloque">
+            <h2>Buscar</h2>
+            <form action="{{ url_for('index') }}" method="get" class="fila">
+                <input type="text" name="q" value="{{ q }}" placeholder="Palabra o frase a buscar" required>
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        {% if q %}
+        <section class="resultados">
+            <h2>
+                {{ resultados|length }} coincidencia(s) en
+                {{ resultados|map(attribute='nombre')|unique|list|length }} documento(s)
+                para "{{ q }}"
+            </h2>
+
+            {% for r in resultados %}
+            <a class="resultado" href="{{ r.url }}" target="_blank">
+                <div class="resultado-titulo">
+                    {{ r.nombre }}
+                    <span class="pagina">Página {{ r.pagina }}</span>
+                </div>
+                <div class="fragmento">{{ r.fragmento|safe }}</div>
+            </a>
+            {% else %}
+            <p class="nota">No se encontró "{{ q }}" en ningún documento.</p>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <section class="bloque">
+            <h2>Subir documentos</h2>
+            <form action="{{ url_for('subir') }}" method="post" enctype="multipart/form-data" class="fila">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="file" name="pdfs" accept=".pdf" multiple required>
+                <button type="submit">Subir e indexar</button>
+            </form>
+        </section>
+
+        <section class="bloque">
+            <div class="encabezado-tabla">
+                <h2>Documentos cargados ({{ docs|length }})</h2>
+                {% if repetidos %}
+                <form action="{{ url_for('quitar_repetidos') }}" method="post"
+                    onsubmit="return confirm('Se eliminarán {{ repetidos }} documento(s) repetidos y se conservará uno de cada uno. ¿Continuar?')">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="secundario">Quitar repetidos ({{ repetidos }})</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th class="num">Páginas</th>
+                        <th class="acciones"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in docs %}
+                    <tr>
+                        <td><a href="{{ url_for('ver_pdf', archivo=d.archivo) }}" target="_blank">{{ d.nombre }}</a>
+                        </td>
+                        <td class="num">{{ d.paginas }}</td>
+                        <td class="acciones">
+                            <form action="{{ url_for('eliminar', doc_id=d.id) }}" method="post"
+                                onsubmit="return confirm('¿Eliminar este documento?')">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="peligro">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="nota">Aún no hay documentos cargados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+</body>
+
+</html>
